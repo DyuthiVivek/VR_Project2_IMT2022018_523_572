@@ -6,6 +6,26 @@
 
 This project explores Visual Question Answering (VQA) using the Amazon-Berkeley Objects (ABO) dataset. The task involves curating a single-word answer VQA dataset with multimodal tools, evaluating pretrained models, fine-tuning them using Low-Rank Adaptation (LoRA), and benchmarking performance using accuracy metrics.
 
+GitHub repo: https://github.com/DyuthiVivek/VR_Project2_IMT2022018_523_572/
+
+
+Team members:
+
+- Swetha Murali - IMT2022018
+- Dyuthi Vivek - IMT2022523
+- PVS Sukeerthi - IMT2022572
+
+
+## Files
+
+- `dataset_preparation.ipynb`: Full data curation process.
+- `dataset.csv`: CSV file with image path, question and answer.
+- `baseline_evaluation.ipynb`: baseline and fine-tuned model evaluation.
+- `fine_tuning.ipynb`: Fine-tuning using LoRA.
+- `inference.py`: Inference script to run on new images.
+- `requirements.txt`: Dependencies to run the code.
+- `README.md`: Project report.
+
 ## Data Curation
 
 - Source: Amazon Berkeley Objects Dataset (small variant ~3GB)
@@ -153,37 +173,31 @@ Config 2 gave a better accuracy.
 
 5. Changing the batch size did not change the accuracy by much.
 
-6. ![Screenshot from 2025-05-18 17-27-29](https://github.com/user-attachments/assets/473fb584-bd2d-4bc4-8b8d-2cf7aa6b582a)
+6. On evaluating the model after training for 1 epoch, we observed 75% exact match accuracy. After 8 epochs, we observed 79%. This is justified as the loss did not decrease by much after a few epochs. After 8 epochs, the the validation loss started increasing.
 
-7. On evaluating the model after training for 1 epoch, we observed 75% exact match accuracy. After 8 epochs, we observed 79%. This is justified as the loss did not decrease by much after a few epochs. After 8 epochs, the the validation loss started increasing.
+![Screenshot from 2025-05-18 17-27-29](https://github.com/user-attachments/assets/473fb584-bd2d-4bc4-8b8d-2cf7aa6b582a)
 
-8. ![Screenshot from 2025-05-18 15-41-20](https://github.com/user-attachments/assets/d19da32d-cf82-447c-8cf8-ca4beb6f6569)
-
-9. The plot shows the accuracy of the model with different types of questions. This analysis shows that VQA performance is highly dependent on clarity of features relevant to the question type:
+7. The plot below shows the accuracy of the model with different types of questions. This shows that VQA performance is highly dependent on clarity of features relevant to the question type:
 
    - Color is not ambiguous, and directly learnable.
    - Brand recognition is harder. The model might benefit from including OCR modules for better brand and material recognition.
 
-10. We tried evaluating initially on smaller test data set. The accuracy increased when we evaluated it on the entire test set.
+![Screenshot from 2025-05-18 15-41-20](https://github.com/user-attachments/assets/d19da32d-cf82-447c-8cf8-ca4beb6f6569)
 
-### KV caching 
+
+8. We tried evaluating initially on smaller test data set. The accuracy increased when we evaluated it on the entire test set.
+
+## Inference time speedup
+
+We tried KV caching and FP precision reduction.
 
 - Basic finetuned BLIP (FP32): The original fine-tuned BLIP model took 0.127 seconds/image, using standard 32-bit floating point precision with no inference optimizations.
-- With KV Cache: Inference took  0.090 seconds/image. This is as KV caching  enabls key-value caching which allows the model to reuse previously computed attention keys/values during generation, reducing redundant computations and speeding up inference.
-- With FP16 Precision: Using this the inference took 0.095 seconds/image . As switching to 16-bit floating point (FP16) reduces memory usage and takes advantage of faster tensor operations on modern GPUs, leading to improved inference time.
-- We could observe as the size of the test data increased the speeding up of inference time decresed.
+- With KV Cache: Inference took  0.090 seconds/image. KV caching enables key-value caching which allows the model to reuse previously computed attention keys/values during generation, reducing redundant computations and speeding up inference.
+- With FP16 Precision (half-precision inference): Using this, the inference took 0.095 seconds/image. Switching to 16-bit floating point (FP16) reduces memory usage and takes advantage of faster tensor operations on GPUs, leading to improved inference time.
+
 
 ## Challenges 
 
 - We initially used only the metadata without the image for dataset curation. We observed that the model hallucinated and created questions that could not be answered by simply looking at the image. Baseline evaluation gave a low accuracy. We resolved this by giving the image as an input during dataset curation.
 - We faced API rate limits while using Gemini, especially since we gave the image as an input. We resolved this by using several API keys in rotation.
 
-
-## Files
-
-- `dataset_preparation.ipynb`: Full data curation process.
-- `dataset.csv`: CSV file with image path, question and answer.
-- `baseline.ipynb`: baseline and fine-tuned model evaluation.
-- `fine_tuning.ipynb`: Fine-tuning using LoRA.
-- `inference.py`: Inference script to run on new images.
-- `requirements.txt`: dependencies to run the code.
