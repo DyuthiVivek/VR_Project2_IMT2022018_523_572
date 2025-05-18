@@ -6,7 +6,7 @@
 
 This project explores Visual Question Answering (VQA) using the Amazon-Berkeley Objects (ABO) dataset. The task involves curating a single-word answer VQA dataset with multimodal tools, evaluating pretrained models, fine-tuning them using Low-Rank Adaptation (LoRA), and benchmarking performance using accuracy metrics.
 
-## 1. Data Curation
+## Data Curation
 
 - Source: Amazon Berkeley Objects Dataset (small variant ~3GB)
 - Images: We used 15k catalog images (256x256), and created 2-3 questions per image
@@ -69,7 +69,7 @@ For each product image, return a list of 3-4 questions and their single-word ans
 
 
 
-## 2. Baseline Evaluation
+## Baseline Evaluation
 
 We used a subset of the created questions for baseline evaluation.
 
@@ -101,7 +101,7 @@ We evaluated both the baseline and fine-tuned models on only the test data to en
 ### Observation
 - BLIP baseline outperformed ViLT across all metrics. This is because BLIP is larger and more powerful than ViLT.
 
-## 3. Fine-Tuning using LoRA
+## Fine-Tuning using LoRA
 
 ### Model Selection
 - Based on the baseline evaluation results, we chose to fine-tune BLIP since it performed better than ViLT. We chose to not fine-tune BLIP-2 since it is a large model with 2.7 B parameters.
@@ -140,7 +140,7 @@ Config 2 gave a better accuracy.
 |  BLIP fine-tuned | config 2  | 12 | 0.779                 | 0.9753     | 0.779     | 0.3933         |
 | BLIP fine-tuned | config 2  | 8 | 0.7758 | 0.9753 | 0.775 | 0.3921 |
 
-### Observations
+## Observations
 
 1. **Exact Match Accuracy** improved by nearly **29%**, showing that the model was better at generating the exact expected word after fine-tuning.
 
@@ -170,7 +170,7 @@ Config 2 gave a better accuracy.
 
 - The interpretation duration 
 
-### Challenges Encountered
+## Challenges 
 
 - We initially used only the metadata without the image for dataset curation. We observed that the model hallucinated and created questions that could not be answered by simply looking at the image. Baseline evaluation gave a low accuracy. We resolved this by giving the image as an input during dataset curation.
 - We faced API rate limits while using Gemini, especially since we gave the image as an input. We resolved this by using several API keys in rotation.
