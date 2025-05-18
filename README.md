@@ -109,6 +109,10 @@ We evaluated both the baseline and fine-tuned models on only the test data to en
 
 ### Training Details
 
+- Trained and tested 2 configurations for LoRA fine-tuning.
+- Hyperparameters such as batch size were experimented with.
+- The baseline models and the fine-tuned models were evaluated only on test data. 
+
 Best model hyperparameters:
 
 | Parameter          | Value    |
@@ -128,16 +132,15 @@ Best model hyperparameters:
 
 Config 2 gave a better accuracy. 
 
-### Observations
-- Trained and tested 2 configurations for the LoRA fine-tuning .
-- Hyperparameters such as batch size were experimented with.
-- The baseline models and the fine-tuned models were evaluated only on test data. 
+### Results after fine-tuning
 
 | Model         | LoRA config | Batch Size | Exact Match Accuracy | BERTScore | BLEU Score | METEOR Score |
 |---------------|-----|-------|----------|-----------|------------|--------------|
 | BLIP fine-tuned  | config 1     | 12 | 0.777                | 0.9753   | 0.7776      | 0.3925        |
 |  BLIP fine-tuned | config 2  | 12 | 0.779                 | 0.9753     | 0.779     | 0.3933         |
 | BLIP fine-tuned | config 2  | 8 | 0.7758 | 0.9753 | 0.775 | 0.3921 |
+
+### Observations
 
 1. **Exact Match Accuracy** improved by nearly **29%**, showing that the model was better at generating the exact expected word after fine-tuning.
 
@@ -169,7 +172,7 @@ Config 2 gave a better accuracy.
 
 ### Challenges Encountered
 
-- We initially used only the metadata without the image for dataset curation. We observed that the model hallucinated and created questions that could not be answered by simple looking at the image. Baseline evaluation gave a low accuracy. We resolved this by giving the image as an input during dataset curation.
+- We initially used only the metadata without the image for dataset curation. We observed that the model hallucinated and created questions that could not be answered by simply looking at the image. Baseline evaluation gave a low accuracy. We resolved this by giving the image as an input during dataset curation.
 - We faced API rate limits while using Gemini, especially since we gave the image as an input. We resolved this by using several API keys in rotation.
 
 
