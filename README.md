@@ -171,7 +171,7 @@ Config 2 gave a better accuracy.
 - Basic finetuned BLIP (FP32): The original fine-tuned BLIP model took 0.127 seconds/image, using standard 32-bit floating point precision with no inference optimizations.
 - With KV Cache: Inference took  0.090 seconds/image. This is as KV caching  enabls key-value caching which allows the model to reuse previously computed attention keys/values during generation, reducing redundant computations and speeding up inference.
 - With FP16 Precision: Using this the inference took 0.095 seconds/image . As switching to 16-bit floating point (FP16) reduces memory usage and takes advantage of faster tensor operations on modern GPUs, leading to improved inference time.
-- We could observer as the size of the test data increased the speeding up of inference time decresed.
+- We could observe as the size of the test data increased the speeding up of inference time decresed.
 
 ## Challenges 
 
@@ -185,5 +185,5 @@ Config 2 gave a better accuracy.
 - `dataset.csv`: CSV file with image path, question and answer.
 - `baseline.ipynb`: baseline and fine-tuned model evaluation.
 - `fine_tuning.ipynb`: Fine-tuning using LoRA.
-- `run_inference.py`: Inference script to run on new images.
+- `inference.py`: Inference script to run on new images.
 - `requirements.txt`: dependencies to run the code.
