@@ -166,9 +166,12 @@ Config 2 gave a better accuracy.
 
 10. We tried evaluating initially on smaller test data set. The accuracy increased when we evaluated it on the entire test set.
 
-### Quantization and KV caching 
+### KV caching 
 
-- The interpretation duration 
+- Basic finetuned BLIP (FP32): The original fine-tuned BLIP model took 0.127 seconds/image, using standard 32-bit floating point precision with no inference optimizations.
+- With KV Cache: Inference took  0.090 seconds/image. This is as KV caching  enabls key-value caching which allows the model to reuse previously computed attention keys/values during generation, reducing redundant computations and speeding up inference.
+- With FP16 Precision: Using this the inference took 0.095 seconds/image . As switching to 16-bit floating point (FP16) reduces memory usage and takes advantage of faster tensor operations on modern GPUs, leading to improved inference time.
+- We could observer as the size of the test data increased the speeding up of inference time decresed.
 
 ## Challenges 
 
