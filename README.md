@@ -153,11 +153,11 @@ Config 2 gave a better accuracy.
 
 5. Changing the batch size did not change the accuracy by much.
 
-6. plot![](/home/iiitb/Pictures/Screenshots/Screenshot from 2025-05-18 17-27-29.png)
+6. ![Screenshot from 2025-05-18 17-27-29](https://github.com/user-attachments/assets/473fb584-bd2d-4bc4-8b8d-2cf7aa6b582a)
 
 7. On evaluating the model after training for 1 epoch, we observed 75% exact match accuracy. After 8 epochs, we observed 79%. This is justified as the loss did not decrease by much after a few epochs. After 8 epochs, the the validation loss started increasing.
 
-8. <img src="/home/iiitb/.config/Typora/typora-user-images/image-20250518154227228.png" alt="image-20250518154227228" style="zoom:50%;" />
+8. ![Screenshot from 2025-05-18 15-41-20](https://github.com/user-attachments/assets/d19da32d-cf82-447c-8cf8-ca4beb6f6569)
 
 9. The plot shows the accuracy of the model with different types of questions. This analysis shows that VQA performance is highly dependent on clarity of features relevant to the question type:
 
